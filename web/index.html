@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" data-finish="oro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER — Joyería de autor</title>
+  <meta name="description" content="Piezas en oro 18k, plata 925 y acabado noir. Series cortas hechas a mano en Buenos Aires.">
+
+  <!-- Google Fonts: Archivo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Restaurar acabado inmediatamente para evitar FOUC -->
+  <script>
+    (function () {
+      try {
+        var f = localStorage.getItem('atelier:finish');
+        if (f === 'oro' || f === 'plata' || f === 'noir') {
+          document.documentElement.dataset.finish = f;
+        }
+      } catch (_) {}
+    })();
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap site-header__inner">
+      <a href="/" class="wordmark" aria-label="ATELIER, inicio">
+        ATELIER
+        <span class="wordmark__v">v2</span>
+      </a>
+
+      <nav class="site-nav" aria-label="Principal">
+        <a href="/">Home</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#sobre-nosotros">Sobre nosotros</a>
+      </nav>
+
+      <div class="finish" data-index="0" role="group" aria-label="Acabado">
+        <span class="finish__indicator" aria-hidden="true"></span>
+        <button type="button" class="finish__option" aria-pressed="true" data-finish="oro">Oro</button>
+        <button type="button" class="finish__option" aria-pressed="false" data-finish="plata">Plata</button>
+        <button type="button" class="finish__option" aria-pressed="false" data-finish="noir">Noir</button>
+      </div>
+
+      <button
+        type="button"
+        class="menu-button"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Abrir menú"
+      >
+        <span class="menu-button__bars" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="mobile-nav" id="mobile-nav" data-open="false">
+      <div class="mobile-nav__inner" inert>
+        <nav class="wrap" aria-label="Principal móvil">
+          <ul class="mobile-nav__list">
+            <li><a href="/">Home</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div class="hero__main">
+          <h1 class="hero__title">Piezas hechas a mano para quedarse.</h1>
+          <p class="hero__lead">Series cortas en oro 18k, plata 925 y acabado noir. Cada pieza sale del taller, no de una fábrica.</p>
+          <a class="hero__cta" href="#catalogo">Ver catálogo</a>
+        </div>
+
+        <dl class="hero__spec">
+          <div class="spec-row">
+            <dt>Material</dt>
+            <dd>Oro 18k, plata 925</dd>
+          </div>
+          <div class="spec-row">
+            <dt>Acabado</dt>
+            <dd>Pulido, noir</dd>
+          </div>
+          <div class="spec-row">
+            <dt>Origen</dt>
+            <dd>Buenos Aires</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="intro" id="sobre-nosotros">
+      <div class="wrap intro__grid">
+        <h2 class="intro__title">Sobre el atelier</h2>
+        <div class="intro__body">
+          <p>
+            Trabajamos en series cortas porque cada pieza se termina a mano. No
+            hay línea de montaje: hay un banco, una lima y el tiempo que cada
+            material pide.
+          </p>
+          <p>
+            Elegimos oro 18k y plata 925 por lo que aguantan. El acabado noir es
+            una pátina que se asienta con el uso, así que la pieza no se gasta:
+            se vuelve tuya.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand">
+          <span class="wordmark">
+            ATELIER
+            <span class="wordmark__v">v2</span>
+          </span>
+          <p class="site-footer__tagline">
+            Series cortas en oro 18k, plata 925 y acabado noir. Cada pieza sale del taller, no de una fábrica.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="site-footer__title">Catálogo</h2>
+          <ul class="site-footer__list">
+            <li><a href="#catalogo?categoria=aros">Aros</a></li>
+            <li><a href="#catalogo?categoria=anillos">Anillos</a></li>
+            <li><a href="#catalogo?categoria=collares">Collares</a></li>
+            <li><a href="#catalogo?categoria=pulseras">Pulseras</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="site-footer__title">Atelier</h2>
+          <ul class="site-footer__list">
+            <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
+            <li><a href="#envios">Envíos y entregas</a></li>
+            <li><a href="#cuidado">Cuidado de las piezas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="site-footer__title">Contacto</h2>
+          <ul class="site-footer__list">
+            <li><a href="https://wa.me/5491100000000" target="_blank" rel="noreferrer">WhatsApp</a></li>
+            <li><a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a></li>
+            <li><a href="mailto:hola@atelier.com">hola@atelier.com</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <span>© <span id="year">2026</span> ATELIER</span>
+        <span>Buenos Aires, Argentina</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
+
