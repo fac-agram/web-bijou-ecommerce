@@ -1,165 +1,464 @@
 <!DOCTYPE html>
-<html lang="es" data-finish="oro">
+<html lang="es" data-theme="atelier">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATELIER — Joyería de autor</title>
-  <meta name="description" content="Piezas en oro 18k, plata 925 y acabado noir. Series cortas hechas a mano en Buenos Aires.">
+  <title>ATELIER V2 — Bijou que no se oxida</title>
+  <meta name="description" content="Diseñamos piezas mínimas que resisten agua, perfume y el uso diario. Acero quirúrgico 316L, oro 18k laminado y plata rodinada. Buenos Aires.">
 
-  <!-- Google Fonts: Archivo -->
+  <!-- Tipografías: Cormorant Garamond (editorial serif) & Plus Jakarta Sans (sans-serif) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Restaurar acabado inmediatamente para evitar FOUC -->
+  <!-- Evitar parpadeo de tema (FOUC) -->
   <script>
     (function () {
       try {
-        var f = localStorage.getItem('atelier:finish');
-        if (f === 'oro' || f === 'plata' || f === 'noir') {
-          document.documentElement.dataset.finish = f;
+        var savedTheme = localStorage.getItem('atelier:theme');
+        if (savedTheme === 'noir' || savedTheme === 'atelier') {
+          document.documentElement.dataset.theme = savedTheme;
         }
       } catch (_) {}
     })();
   </script>
 </head>
 <body>
+
+  <!-- =========================================
+       HEADER
+  ========================================= -->
   <header class="site-header">
     <div class="wrap site-header__inner">
-      <a href="/" class="wordmark" aria-label="ATELIER, inicio">
-        ATELIER
-        <span class="wordmark__v">v2</span>
+      <a href="#" class="brand" aria-label="Atelier V2, Inicio">
+        <div class="brand__logo">
+          ATELIER <span class="brand__v2">V2</span>
+        </div>
+        <div class="brand__sub">ORO / PLATA NOIR</div>
       </a>
 
-      <nav class="site-nav" aria-label="Principal">
-        <a href="/">Home</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#sobre-nosotros">Sobre nosotros</a>
+      <!-- Menú en fila para computadoras (Desktop) -->
+      <nav class="desktop-nav" aria-label="Navegación principal">
+        <a href="#hero" class="desktop-nav__link">Home</a>
+        <a href="#bestsellers" class="desktop-nav__link">Bestsellers</a>
+        <a href="#catalogo" class="desktop-nav__link">Catálogo</a>
+        <a href="#sobre-nosotras" class="desktop-nav__link">Sobre Nosotras</a>
       </nav>
 
-      <div class="finish" data-index="0" role="group" aria-label="Acabado">
-        <span class="finish__indicator" aria-hidden="true"></span>
-        <button type="button" class="finish__option" aria-pressed="true" data-finish="oro">Oro</button>
-        <button type="button" class="finish__option" aria-pressed="false" data-finish="plata">Plata</button>
-        <button type="button" class="finish__option" aria-pressed="false" data-finish="noir">Noir</button>
-      </div>
+      <div class="header-actions">
+        <!-- Switch Atelier / Noir -->
+        <div class="theme-switch" role="group" aria-label="Selector de tema">
+          <button type="button" class="theme-switch__btn active" data-mode="atelier" id="btn-theme-atelier">
+            Atelier
+          </button>
+          <button type="button" class="theme-switch__btn" data-mode="noir" id="btn-theme-noir">
+            Noir
+          </button>
+        </div>
 
-      <button
-        type="button"
-        class="menu-button"
-        aria-expanded="false"
-        aria-controls="mobile-nav"
-        aria-label="Abrir menú"
-      >
-        <span class="menu-button__bars" aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <div class="mobile-nav" id="mobile-nav" data-open="false">
-      <div class="mobile-nav__inner" inert>
-        <nav class="wrap" aria-label="Principal móvil">
-          <ul class="mobile-nav__list">
-            <li><a href="/">Home</a></li>
-            <li><a href="#catalogo">Catálogo</a></li>
-            <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
-          </ul>
-        </nav>
+        <!-- Botón Menú Móvil (Alterna entre ≡ y ✕) -->
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-label="Abrir menú">
+          <svg class="menu-icon menu-icon--bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="20" y2="17"></line>
+          </svg>
+          <svg class="menu-icon menu-icon--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="6" y1="18" x2="18" y2="6"></line>
+          </svg>
+        </button>
       </div>
     </div>
+
+    <!-- Menú Desplegable -->
+    <nav class="mobile-menu" id="mobile-menu" inert>
+      <div class="wrap mobile-menu__inner">
+        <ul class="mobile-menu__list">
+          <li><a href="#hero" class="mobile-menu__link">Home</a></li>
+          <li><a href="#catalogo" class="mobile-menu__link">Catálogo</a></li>
+          <li><a href="#sobre-nosotras" class="mobile-menu__link">Sobre Nosotras</a></li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="wrap hero__grid">
-        <div class="hero__main">
-          <h1 class="hero__title">Piezas hechas a mano para quedarse.</h1>
-          <p class="hero__lead">Series cortas en oro 18k, plata 925 y acabado noir. Cada pieza sale del taller, no de una fábrica.</p>
-          <a class="hero__cta" href="#catalogo">Ver catálogo</a>
+    <!-- =========================================
+         HERO SECTION
+    ========================================= -->
+    <section class="hero" id="hero">
+      <div class="wrap">
+        <!-- Badge superior -->
+        <div class="hero__badge">
+          <span class="hero__badge-dot">●</span> NUEVA COLECCIÓN V2 — ACERO QUIRÚRGICO
         </div>
 
-        <dl class="hero__spec">
-          <div class="spec-row">
-            <dt>Material</dt>
-            <dd>Oro 18k, plata 925</dd>
+        <!-- Título principal editorial -->
+        <h1 class="hero__title">
+          Bijou que<br>
+          <em class="hero__title-italic">no se oxida.</em><br>
+          Hecha para todos los días
+        </h1>
+
+        <!-- Párrafo lead -->
+        <p class="hero__lead">
+          Diseñamos piezas mínimas que resisten agua, perfume y el uso diario. Oro laminado 18k y plata con baño de rodio. Hipoalergénicas, livianas, eternas.
+        </p>
+
+        <!-- CTA Principal -->
+        <div class="hero__cta-group">
+          <a href="#catalogo" class="btn-primary">
+            Ver Catálogo <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+          <div class="social-proof__avatars">
+            <span class="avatar">A</span>
+            <span class="avatar">B</span>
+            <span class="avatar">C</span>
           </div>
-          <div class="spec-row">
-            <dt>Acabado</dt>
-            <dd>Pulido, noir</dd>
+          <span class="social-proof__text">+1.2k clientas felices</span>
+        </div>
+
+        <!-- Ficha técnica 3 columnas -->
+        <div class="spec-grid">
+          <div class="spec-col">
+            <span class="spec-col__label">MATERIAL</span>
+            <span class="spec-col__value">Acero quirúrgico 316L</span>
           </div>
-          <div class="spec-row">
-            <dt>Origen</dt>
-            <dd>Buenos Aires</dd>
+          <div class="spec-col">
+            <span class="spec-col__label">GARANTÍA</span>
+            <span class="spec-col__value">Anti-alérgico</span>
           </div>
-        </dl>
+          <div class="spec-col">
+            <span class="spec-col__label">ENVÍO</span>
+            <span class="spec-col__value">La Plata + CABA</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="intro" id="sobre-nosotros">
-      <div class="wrap intro__grid">
-        <h2 class="intro__title">Sobre el atelier</h2>
-        <div class="intro__body">
-          <p>
-            Trabajamos en series cortas porque cada pieza se termina a mano. No
-            hay línea de montaje: hay un banco, una lima y el tiempo que cada
-            material pide.
-          </p>
-          <p>
-            Elegimos oro 18k y plata 925 por lo que aguantan. El acabado noir es
-            una pátina que se asienta con el uso, así que la pieza no se gasta:
-            se vuelve tuya.
-          </p>
+    <!-- =========================================
+         EDITORIAL CARD & MATERIALES
+    ========================================= -->
+    <section class="editorial-section">
+      <div class="wrap">
+        <!-- Tarjeta Grande Editorial -->
+        <div class="editorial-card">
+          <div class="editorial-card__artwork">
+            <svg viewBox="0 0 320 280" class="celestial-svg" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 60 110 C 130 160, 200 140, 260 110" fill="none" stroke="#D3B068" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.8" />
+              <!-- Órbitas orgánicas -->
+              <ellipse cx="160" cy="140" rx="95" ry="75" fill="none" stroke="rgba(211, 176, 104, 0.25)" stroke-width="1" />
+              <ellipse cx="205" cy="130" rx="42" ry="55" fill="none" stroke="rgba(211, 176, 104, 0.35)" stroke-width="1" />
+              <!-- Nodos / Planetas -->
+              <circle cx="95" cy="135" r="3" fill="#C5A059" />
+              <circle cx="180" cy="136" r="3" fill="#C5A059" />
+              <circle cx="230" cy="125" r="4" fill="#C5A059" />
+              <circle cx="225" cy="133" r="2.5" fill="none" stroke="#C5A059" stroke-width="1" />
+              <circle cx="140" cy="154" r="6" fill="none" stroke="#C5A059" stroke-width="1.5" />
+              <circle cx="140" cy="154" r="2" fill="#C5A059" />
+            </svg>
+          </div>
+
+          <div class="editorial-card__footer">
+            <div class="editorial-pill">
+              <span class="editorial-pill__tag">EDITORIAL V2</span>
+              <span class="editorial-pill__title">Luz natural, piel real</span>
+            </div>
+            <div class="editorial-action">
+              <span class="action-dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Fichas de Materiales (Au / Ag) -->
+        <div class="materials-grid">
+          <div class="material-chip">
+            <div class="material-chip__symbol material-chip__symbol--gold">Au</div>
+            <div class="material-chip__info">
+              <span class="material-chip__label">ACABADO</span>
+              <span class="material-chip__value">Oro 18k laminado</span>
+            </div>
+          </div>
+
+          <div class="material-chip">
+            <div class="material-chip__symbol material-chip__symbol--silver">Ag</div>
+            <div class="material-chip__info">
+              <span class="material-chip__label">BASE</span>
+              <span class="material-chip__value">Plata .925 rodinada</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         BESTSELLERS DE LA SEMANA
+    ========================================= -->
+    <section class="bestsellers-section" id="bestsellers">
+      <div class="wrap">
+        <h2 class="section-title">
+          Bestsellers <em class="section-title__italic">de la semana</em>
+        </h2>
+
+        <div class="bestsellers-list">
+          <!-- Bestseller 01 -->
+          <article class="bestseller-card bestseller-card--gold">
+            <div class="bestseller-card__visual">
+              <div class="bestseller-card__badges">
+                <span class="pill-badge pill-badge--white">ORO</span>
+                <span class="pill-badge pill-badge--gold">BESTSELLER</span>
+              </div>
+              <div class="bestseller-card__artwork">
+                <div class="medallion-artwork medallion-artwork--gold">
+                  <span>A</span>
+                  <div class="sparkle-badge">✦</div>
+                </div>
+              </div>
+              <div class="bestseller-card__meta">
+                <span>01</span>
+                <span>ORO • AROS</span>
+              </div>
+            </div>
+            <div class="bestseller-card__content">
+              <div class="bestseller-card__info">
+                <h3 class="bestseller-card__title">Aros Luna Mini</h3>
+                <p class="bestseller-card__subtitle">Aros • En stock</p>
+              </div>
+              <div class="bestseller-card__pricing">
+                <span class="bestseller-card__price">$18.900</span>
+                <span class="bestseller-card__currency">ARS</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bestseller 02 -->
+          <article class="bestseller-card bestseller-card--gold">
+            <div class="bestseller-card__visual">
+              <div class="bestseller-card__badges">
+                <span class="pill-badge pill-badge--white">ORO</span>
+                <span class="pill-badge pill-badge--gold">BESTSELLER</span>
+              </div>
+              <div class="bestseller-card__artwork">
+                <div class="medallion-artwork medallion-artwork--gold">
+                  <span>C</span>
+                  <div class="sparkle-badge">✦</div>
+                </div>
+              </div>
+              <div class="bestseller-card__meta">
+                <span>02</span>
+                <span>ORO • COLLARES</span>
+              </div>
+            </div>
+            <div class="bestseller-card__content">
+              <div class="bestseller-card__info">
+                <h3 class="bestseller-card__title">Collar Venus</h3>
+                <p class="bestseller-card__subtitle">Collares • En stock</p>
+              </div>
+              <div class="bestseller-card__pricing">
+                <span class="bestseller-card__price">$24.500</span>
+                <span class="bestseller-card__currency">ARS</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bestseller 03 -->
+          <article class="bestseller-card bestseller-card--silver">
+            <div class="bestseller-card__visual">
+              <div class="bestseller-card__badges">
+                <span class="pill-badge pill-badge--white">PLATA</span>
+                <span class="pill-badge pill-badge--gold">BESTSELLER</span>
+              </div>
+              <div class="bestseller-card__artwork">
+                <div class="medallion-artwork medallion-artwork--silver">
+                  <span>A</span>
+                  <div class="sparkle-badge">✦</div>
+                </div>
+              </div>
+              <div class="bestseller-card__meta">
+                <span>03</span>
+                <span>PLATA • ANILLOS</span>
+              </div>
+            </div>
+            <div class="bestseller-card__content">
+              <div class="bestseller-card__info">
+                <h3 class="bestseller-card__title">Anillo Orbita</h3>
+                <p class="bestseller-card__subtitle">Anillos • En stock</p>
+              </div>
+              <div class="bestseller-card__pricing">
+                <span class="bestseller-card__price">$16.200</span>
+                <span class="bestseller-card__currency">ARS</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         CATÁLOGO COMPLETO (GRILLA 2 COLUMNAS)
+    ========================================= -->
+    <section class="catalog-section" id="catalogo">
+      <div class="wrap">
+        <h2 class="section-title">
+          Catálogo <em class="section-title__italic">completo</em>
+        </h2>
+
+        <!-- Filtros horizontales -->
+        <nav class="filters" aria-label="Filtros de categoría">
+          <button type="button" class="filter-chip active" data-filter="todo">Todo</button>
+          <button type="button" class="filter-chip" data-filter="oro">Oro</button>
+          <button type="button" class="filter-chip" data-filter="plata">Plata</button>
+          <button type="button" class="filter-chip" data-filter="aros">Aros</button>
+          <button type="button" class="filter-chip" data-filter="collares">Collares</button>
+          <button type="button" class="filter-chip" data-filter="anillos">Anillos</button>
+        </nav>
+
+        <!-- Grilla dinámica de productos -->
+        <div class="products-grid" id="products-grid">
+          <!-- Inyectado con JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================
+         BENTO GRID & SOBRE NOSOTRAS
+    ========================================= -->
+    <section class="about-section" id="sobre-nosotras">
+      <div class="wrap">
+        <!-- Bento 4 bloques -->
+        <div class="bento-grid">
+          <!-- 1. Foto Mica -->
+          <div class="bento-box bento-box--photo">
+            <div class="bento-photo-placeholder">
+              <span>FOTO<br>MICA</span>
+            </div>
+          </div>
+
+          <!-- 2. Cita / Manifiesto -->
+          <div class="bento-box bento-box--quote">
+            <blockquote class="bento-quote">
+              “Si no lo usaríamos todos los días, no lo vendemos.”
+            </blockquote>
+            <span class="bento-author">— CAMI &amp; MICA</span>
+          </div>
+
+          <!-- 3. Origen La Plata -->
+          <div class="bento-box bento-box--origin">
+            <span class="bento-origin__tag">DESDE</span>
+            <h3 class="bento-origin__city">La Plata</h3>
+            <p class="bento-origin__desc">
+              Estudio chiquito, luz de tarde, mate y cajas por todos lados.
+            </p>
+          </div>
+
+          <!-- 4. Foto Cami -->
+          <div class="bento-box bento-box--photo">
+            <div class="bento-photo-placeholder">
+              <span>FOTO<br>CAMI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manifiesto texto inferior -->
+        <div class="story-manifesto">
+          <span class="story-manifesto__pill">SOBRE NOSOTRAS</span>
+          <h2 class="story-manifesto__title">
+            Dos amigas de La Plata que se cansaron de la bijou que se pone verde.
+          </h2>
+          <div class="story-manifesto__body">
+            <p>
+              Empezamos en 2021 trayendo aros en una mochila. Probamos 14 proveedores hasta encontrar acero quirúrgico que realmente no se oxide, no de alergia y se pueda mojar. Hoy armamos cápsulas chicas, 30 unidades por modelo, para no repetirnos en la calle.
+            </p>
+            <p>
+              Todo se chequea a mano, se guarda con anti-tarnish y sale con cajita. Si algo no te cierra, lo cambiamos sin vueltas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Tarjetas de Garantía / Diferenciales con Check (✓) -->
+        <div class="guarantee-cards">
+          <div class="guarantee-card">
+            <div class="guarantee-card__check">✓</div>
+            <div class="guarantee-card__content">
+              <h3 class="guarantee-card__title">Anti-alérgico</h3>
+              <p class="guarantee-card__desc">Hipoalergénico, sin níquel. Testeado en pieles sensibles.</p>
+            </div>
+          </div>
+
+          <div class="guarantee-card">
+            <div class="guarantee-card__check">✓</div>
+            <div class="guarantee-card__content">
+              <h3 class="guarantee-card__title">Acero quirúrgico</h3>
+              <p class="guarantee-card__desc">316L. Resiste agua, perfume, mar. No se oxida.</p>
+            </div>
+          </div>
+
+          <div class="guarantee-card">
+            <div class="guarantee-card__check">✓</div>
+            <div class="guarantee-card__content">
+              <h3 class="guarantee-card__title">Envío cuidado</h3>
+              <p class="guarantee-card__desc">La Plata 24hs, CABA 48hs. Packaging reutilizable.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección UGC en Instagram -->
+        <div class="ugc-section">
+          <span class="ugc-section__label">EN INSTAGRAM</span>
+          <h3 class="ugc-section__title">@atelier.v2.bijou • UGC real</h3>
+          <div class="ugc-chips">
+            <div class="ugc-chip">“Me baño y sigue intacto” — Agus</div>
+            <div class="ugc-chip">“No me dio alergia nunca” — Sofi</div>
+            <div class="ugc-chip">“El brillo del oro 18k dura meses” — Cami</div>
+            <div class="ugc-chip">“El packaging es hermoso” — Valen</div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <div class="site-footer__grid">
-        <div class="site-footer__brand">
-          <span class="wordmark">
-            ATELIER
-            <span class="wordmark__v">v2</span>
-          </span>
-          <p class="site-footer__tagline">
-            Series cortas en oro 18k, plata 925 y acabado noir. Cada pieza sale del taller, no de una fábrica.
-          </p>
-        </div>
+  <!-- =========================================
+       FOOTER
+  ========================================= -->
+  <footer class="site-footer" id="contacto">
+    <div class="wrap site-footer__inner">
+      <div class="footer-brand">
+        <span class="brand__logo">ATELIER <span class="brand__v2">V2</span></span>
+        <p class="footer-brand__tagline">
+          Bijou que no se oxida. Series hechas para durar y acompañarte todos los días.
+        </p>
+      </div>
 
-        <div>
-          <h2 class="site-footer__title">Catálogo</h2>
-          <ul class="site-footer__list">
-            <li><a href="#catalogo?categoria=aros">Aros</a></li>
-            <li><a href="#catalogo?categoria=anillos">Anillos</a></li>
-            <li><a href="#catalogo?categoria=collares">Collares</a></li>
-            <li><a href="#catalogo?categoria=pulseras">Pulseras</a></li>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Atelier</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#catalogo">Catálogo</a></li>
+            <li><a href="#bestsellers">Bestsellers</a></li>
+            <li><a href="#sobre-nosotras">Sobre Nosotras</a></li>
           </ul>
         </div>
-
-        <div>
-          <h2 class="site-footer__title">Atelier</h2>
-          <ul class="site-footer__list">
-            <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
-            <li><a href="#envios">Envíos y entregas</a></li>
-            <li><a href="#cuidado">Cuidado de las piezas</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 class="site-footer__title">Contacto</h2>
-          <ul class="site-footer__list">
-            <li><a href="https://wa.me/5491100000000" target="_blank" rel="noreferrer">WhatsApp</a></li>
-            <li><a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a></li>
-            <li><a href="mailto:hola@atelier.com">hola@atelier.com</a></li>
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://wa.me/5491100000000" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://instagram.com/atelier.v2.bijou" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="mailto:hola@atelierbijou.com">hola@atelierbijou.com</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="site-footer__bottom">
-        <span>© <span id="year">2026</span> ATELIER</span>
-        <span>Buenos Aires, Argentina</span>
+      <div class="footer-bottom">
+        <span>© <span id="year">2026</span> ATELIER NOIR BIJOU</span>
+        <span>La Plata &bull; Buenos Aires, Argentina</span>
       </div>
     </div>
   </footer>
@@ -167,4 +466,3 @@
   <script src="script.js" defer></script>
 </body>
 </html>
-
