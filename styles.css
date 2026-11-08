@@ -17,6 +17,9 @@
   --gold-soft: #fcf7ec;
   --silver-soft: #f0f4f9;
 
+  /* Bordes de cuadros de productos (más cuadrados y limpios) */
+  --card-radius: 4px;
+
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --trans: 240ms var(--ease);
 }
@@ -493,7 +496,7 @@ button {
 .editorial-card {
   position: relative;
   background: var(--editorial-grad);
-  border-radius: 1.75rem;
+  border-radius: var(--card-radius);
   border: 1px solid var(--line);
   overflow: hidden;
   min-height: 380px;
@@ -531,7 +534,7 @@ button {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   padding: 0.6rem 1rem;
-  border-radius: 1.1rem;
+  border-radius: var(--card-radius);
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -590,7 +593,7 @@ html[data-theme="noir"] .editorial-action {
 .material-chip {
   background-color: var(--card-bg);
   border: 1px solid var(--line);
-  border-radius: 1.1rem;
+  border-radius: var(--card-radius);
   padding: 0.85rem;
   display: flex;
   align-items: center;
@@ -601,7 +604,7 @@ html[data-theme="noir"] .editorial-action {
 .material-chip__symbol {
   width: 34px;
   height: 34px;
-  border-radius: 50%;
+  border-radius: var(--card-radius);
   display: grid;
   place-items: center;
   font-size: 0.78rem;
@@ -672,7 +675,7 @@ html[data-theme="noir"] .material-chip__symbol--silver {
 }
 
 .bestseller-card {
-  border-radius: 1.5rem;
+  border-radius: var(--card-radius);
   overflow: hidden;
   border: 1px solid var(--line);
   background-color: var(--card-bg);
@@ -868,7 +871,7 @@ html[data-theme="noir"] .material-chip__symbol--silver {
 .card {
   display: flex;
   flex-direction: column;
-  border-radius: 1.25rem;
+  border-radius: var(--card-radius);
   overflow: hidden;
   border: 1px solid var(--line);
   background-color: var(--card-bg);
@@ -1084,7 +1087,7 @@ html[data-theme="noir"] .badge--plata {
 }
 
 .bento-box {
-  border-radius: 1.25rem;
+  border-radius: var(--card-radius);
   padding: 1.25rem 1rem;
   display: flex;
   flex-direction: column;
@@ -1205,7 +1208,7 @@ html[data-theme="noir"] .badge--plata {
 .guarantee-card {
   background-color: var(--card-bg);
   border: 1px solid var(--line);
-  border-radius: 1.25rem;
+  border-radius: var(--card-radius);
   padding: 1.15rem 1.25rem;
   display: flex;
   align-items: center;
