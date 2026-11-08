@@ -16,7 +16,7 @@ Catálogo e-commerce móvil y responsive desarrollado en **HTML5 puro**, **CSS3*
 ## Cómo previsualizar localmente
 
 ```bash
-# Servidor local con Python
-python3 -m http.server 8000 --directory web
+# Servidor local con Python desde la raíz del proyecto
+python3 -m http.server 8000
 ```
-Luego abre `http://localhost:8000` en tu navegador (o usa el modo responsive / inspeccionar dispositivo móvil para ver el layout de celular idéntico a las capturas).
+Luego abre `http://localhost:8000` en tu navegador (o abre directamente `index.html`).
